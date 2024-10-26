@@ -12,5 +12,4 @@ qc.cx(0, 1)
 
 qc.draw("mpl")
 
-
 plt.show()
