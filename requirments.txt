@@ -1,0 +1,29 @@
+# SamaraLabs
+
+Setting up the virtual environment on linux:
+
+    Create the virtual environment:
+    python -m venv ./venv
+
+    Activate the virtual evironment:
+    source venv/bin/activate
+
+    Check interpreter:
+    python -c "import sys; print(sys.executable)"
+
+    Install dependencies:
+    python -m pip install -r requirements.txt
+
+Setting up the virtual environment on windows:
+
+    Create the virtual environment:
+    python -m venv ./venv
+
+    Activate the virtual evironment:
+    venv\Scripts\activate
+
+    Check interpreter:
+    python -c "import sys; print(sys.executable)"
+
+    Install dependencies:
+    python -m pip install -r requirements.txt
