@@ -1,4 +1,5 @@
 # Quantum_RNG
+## This Repository was created by Josh Deaton and Dylan Brehm for Hackathon fall fest 2024 at Iowa State
 
 ## Setting up the virtual environment on Linux
 
