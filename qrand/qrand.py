@@ -70,10 +70,10 @@ def randint(low : int, high : int) -> int:
 
 def rand() -> float:
     """
-    Creates a random float between 0 and 1
+    Creates a random float between 0(inclusive) and 1(exclusibe)
 
     Returns:
-        float: Random float between 0 and 1
+        float: Random float between 0(inclusive) and 1(exclusive)
     """
 
     divider = 2**_num_sample_bits
