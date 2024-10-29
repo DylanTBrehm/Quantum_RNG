@@ -1,10 +1,12 @@
 import qrand
 import matplotlib.pyplot as plt
 import numpy as np
+import qiskit_ibm_runtime.fake_provider.
 
-print(qrand.rand())
 num_rands = 20000
 num_bins = 15
+
+qrand.init(backend=FakeSherbrooke())
 
 rand_values = [qrand.rand() for i in range(0, num_rands)]
 

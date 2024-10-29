@@ -8,7 +8,7 @@ from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 _backend = AerSimulator()
 _num_sample_bits = 64
 
-def set_qrand_settings(backend : Backend = AerSimulator(), num_sample_bits : int = 64):
+def init(backend : Backend = AerSimulator(), num_sample_bits : int = 64):
     """
     Sets the qrand settings if the defaults are not desirable
 
