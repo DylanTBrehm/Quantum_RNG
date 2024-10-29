@@ -6,9 +6,9 @@ from qiskit_aer import AerSimulator
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
 _backend = AerSimulator()
-_num_samples = 64
+_num_sample_bits = 64
 
-def set_qrand_settings(backend : Backend = AerSimulator(), samples : int = 64):
+def set_qrand_settings(backend : Backend = AerSimulator(), num_sample_bits : int = 64):
     """
     Sets the qrand settings if the defaults are not desirable
 
@@ -18,9 +18,9 @@ def set_qrand_settings(backend : Backend = AerSimulator(), samples : int = 64):
     """
 
     _set_backend(backend)
-    _set_samples(samples)
+    _set_samples(num_sample_bits)
 
-def randbits(num_bits : int = _num_samples)-> List[int]:
+def randbits(num_sample_bits : int = _num_sample_bits)-> List[int]:
     """
     Generates a list of random bits
 
@@ -37,7 +37,7 @@ def randbits(num_bits : int = _num_samples)-> List[int]:
     pub = [(circuit)]
     sampler = BackendSamplerV2(backend=_backend)
 
-    job = sampler.run(pub,shots=num_bits)
+    job = sampler.run(pub,shots=num_sample_bits)
     result = job.result()[0]
     rand_bits = result.data.meas.bitcount()
 
@@ -76,27 +76,27 @@ def rand() -> float:
         float: Random float between 0 and 1
     """
 
-    divider = randint(0, 2**_num_samples)
+    divider = 2**_num_sample_bits
 
-    rand_float = float(1 / divider)
+    rand_float = float(randint(0, 2**_num_sample_bits) / divider)
 
     return rand_float
 
 def _map_value(low : float, high : float, value : float) -> float:
     """
-    Maps a 2**_num_samples bit random number to a range of values
+    Maps a 2**_num_sample_bits bit random number to a range of values
 
     Args:
         low (float): Low end of the range (Inclusive)
         high (float): High end of the range (Exclusive)
-        value (float): The 2**_num_samples bit random value to be mapped
+        value (float): The 2**_num_sample_bits bit random value to be mapped
 
     Returns:
         float: The mapped value
     """
     num_buckets = high - low
 
-    mapping = num_buckets / (2**_num_samples)
+    mapping = num_buckets / (2**_num_sample_bits)
 
     mapped_value = mapping * value + low
 
@@ -121,6 +121,6 @@ def _set_samples(samples : int):
         samples (int): number of bits/samples to generate randint and randfloat
     """
 
-    global _num_samples
+    global _num_sample_bits
 
-    _num_samples = samples
+    _num_sample_bits = samples
