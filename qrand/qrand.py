@@ -7,6 +7,7 @@ from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 
 _backend = AerSimulator()
 _num_sample_bits = 64
+_circuit = None
 
 def init(backend : Backend = AerSimulator(), num_sample_bits : int = 64):
     """
@@ -19,6 +20,7 @@ def init(backend : Backend = AerSimulator(), num_sample_bits : int = 64):
 
     _set_backend(backend)
     _set_samples(num_sample_bits)
+    _init_circuit()
 
 def randbits(num_sample_bits : int = _num_sample_bits)-> List[int]:
     """
@@ -28,13 +30,7 @@ def randbits(num_sample_bits : int = _num_sample_bits)-> List[int]:
         List[int]: List of random bits
     """
 
-    circuit = QuantumCircuit(1)
-
-    circuit.h(0)
-
-    circuit.measure_all()
-
-    pub = [(circuit)]
+    pub = [(_circuit)]
     sampler = BackendSamplerV2(backend=_backend)
 
     job = sampler.run(pub,shots=num_sample_bits)
@@ -124,3 +120,16 @@ def _set_samples(samples : int):
     global _num_sample_bits
 
     _num_sample_bits = samples
+
+def _init_circuit():
+    global _circuit
+
+    _circuit = QuantumCircuit(1)
+
+    _circuit.h(0)
+
+    _circuit.measure_all()
+
+    pm = generate_preset_pass_manager(optimization_level=3, backend=_backend)
+
+    _circuit = pm.run(_circuit)
