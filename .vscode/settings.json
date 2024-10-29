@@ -6,4 +6,5 @@
         "<C-z>": false,
         "<C-p>": false
     },
+    "python.envFile": "${workspaceFolder}/.env"
 }
