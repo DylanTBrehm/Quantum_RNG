@@ -4,6 +4,7 @@ from qiskit.providers.backend import Backend
 from qiskit.primitives import BackendSamplerV2
 from qiskit_aer import AerSimulator
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+import matplotlib.pyplot as plt
 
 _backend = AerSimulator()
 _num_sample_bits = 64
@@ -130,6 +131,12 @@ def _init_circuit():
 
     _circuit.measure_all()
 
+    _circuit.draw(output="mpl")
+
+    plt.show()
+
     pm = generate_preset_pass_manager(optimization_level=3, backend=_backend)
 
     _circuit = pm.run(_circuit)
+
+init()
